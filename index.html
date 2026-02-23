@@ -246,6 +246,7 @@
   .section-inner {
     max-width: 1200px;
     margin: 0 auto;
+    width: 100%;
   }
 
   .section-label {
@@ -274,6 +275,7 @@
     gap: 80px;
     align-items: center;
     margin-top: 60px;
+    width: 100%;
   }
 
   .about-text p {
@@ -287,6 +289,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2px;
+    min-width: 0;
   }
 
   .stat-card {
@@ -295,6 +298,8 @@
     padding: 40px 32px;
     text-align: center;
     transition: all 0.4s;
+    min-width: 0;
+    overflow: hidden;
   }
 
   .stat-card:hover {
@@ -394,11 +399,13 @@
     border: 1px solid rgba(201,169,110,0.2);
     padding: 80px;
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 80px;
     align-items: center;
+    overflow: hidden;
   }
 
   .home-service-badge {
@@ -426,7 +433,12 @@
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    line-height: 1.6;
+    line-height: 1.7;
+  }
+
+  .home-service-info li .li-text {
+    flex: 1;
+    min-width: 0;
   }
 
   .home-service-info li::before {
@@ -804,20 +816,131 @@
     transform: translateY(0);
   }
 
+  /* ── TEXTO: evitar quebra sem regra gramatical ── */
+  p, li, h1, h2, h3, h4, span, a {
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
   /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    nav { padding: 20px 24px; }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    nav { padding: 20px 32px; }
+    .about-grid { gap: 48px; }
+    .home-service { padding: clamp(32px, 5vw, 60px); gap: 48px; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+    .gallery-item:nth-child(3) { grid-column: span 1; }
+    .gallery-item:nth-child(5) { grid-column: span 1; }
+  }
+
+  /* Mobile */
+  @media (max-width: 700px) {
+    /* Nav */
+    nav { padding: 18px 20px; }
     .nav-links { display: none; }
+    .nav-logo { font-size: 1rem; letter-spacing: 0.15em; }
+
+    /* Seções */
+    section { padding: clamp(60px, 12vw, 100px) clamp(16px, 5vw, 24px); }
+    .scheduling-section { padding: clamp(60px, 12vw, 100px) clamp(16px, 5vw, 24px); }
+
+    /* Divider */
+    .divider { padding: 0 20px; }
+
+    /* Hero */
+    .hero { padding: 100px clamp(16px, 5vw, 24px) 80px; }
+    .hero-eyebrow {
+      font-size: clamp(0.55rem, 2.5vw, 0.68rem);
+      letter-spacing: 0.2em;
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-size: clamp(3rem, 14vw, 5.5rem);
+      line-height: 1;
+    }
+    .hero-subtitle {
+      font-size: clamp(0.95rem, 4vw, 1.2rem);
+      margin-bottom: 28px;
+    }
+    .hero-location {
+      font-size: clamp(0.55rem, 2.5vw, 0.7rem);
+      letter-spacing: 0.12em;
+      margin-bottom: 40px;
+    }
+    .hero-cta-group { flex-direction: column; align-items: center; gap: 12px; }
+    .btn-primary, .btn-outline { width: 100%; max-width: 280px; text-align: center; padding: 16px 24px; }
+
+    /* Títulos */
+    .section-title {
+      font-size: clamp(1.9rem, 8vw, 2.8rem);
+      line-height: 1.15;
+    }
+    .section-label { letter-spacing: 0.2em; }
+
+    /* About */
     .about-grid { grid-template-columns: 1fr; gap: 40px; }
-    .services-grid { grid-template-columns: 1fr; }
-    .home-service { grid-template-columns: 1fr; padding: 48px 32px; gap: 40px; }
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-    .gallery-item:nth-child(3), .gallery-item:nth-child(5) { grid-column: span 1; }
-    .rules-grid { grid-template-columns: 1fr; }
-    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    .about-text p { font-size: clamp(0.88rem, 3.5vw, 1rem); }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .stat-card { padding: clamp(24px, 5vw, 40px) clamp(16px, 4vw, 32px); }
+    .stat-number { font-size: clamp(2rem, 8vw, 3.5rem); }
+
+    /* Serviços */
+    .services-grid { grid-template-columns: 1fr; gap: 2px; }
+    .service-card { padding: clamp(36px, 7vw, 56px) clamp(24px, 5vw, 40px); }
+    .service-name { font-size: clamp(1.4rem, 5vw, 1.8rem); }
+    .service-desc { font-size: clamp(0.82rem, 3vw, 0.88rem); }
+
+    /* Atendimento domicílio */
+    .home-service {
+      grid-template-columns: 1fr;
+      padding: clamp(32px, 7vw, 48px) clamp(20px, 5vw, 32px);
+      gap: 36px;
+    }
+    .home-service-badge { font-size: 0.6rem; }
+    .home-service-info li {
+      font-size: clamp(0.8rem, 3vw, 0.88rem);
+      align-items: flex-start;
+    }
+    .home-service-info li .li-text { display: block; }
+
+    /* Galeria */
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 3px; }
+    .gallery-item:nth-child(3) { grid-column: span 1; }
+    .gallery-item:nth-child(5) { grid-column: span 1; }
+    .gallery-videos { grid-template-columns: 1fr; }
+    .gallery-tab { padding: 12px 20px; font-size: 0.65rem; letter-spacing: 0.12em; }
+
+    /* Regras */
+    .rules-grid { grid-template-columns: 1fr; gap: 2px; }
+    .rule-card { padding: clamp(28px, 6vw, 48px) clamp(20px, 5vw, 40px); }
+    .rule-title { font-size: clamp(1.1rem, 4vw, 1.4rem); }
+    .rule-text { font-size: clamp(0.82rem, 3vw, 0.88rem); }
+
+    /* Scheduling */
+    .scheduling-inner { max-width: 100%; }
+    .scheduling-desc { font-size: clamp(0.88rem, 3.5vw, 1rem); }
+
+    /* Footer */
+    footer { padding: clamp(40px, 8vw, 60px) clamp(16px, 5vw, 32px) 32px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; margin-bottom: 40px; }
+    .footer-brand { font-size: clamp(1.4rem, 5vw, 1.8rem); }
+    .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+    .footer-copyright { font-size: 0.68rem; }
+
+    /* WhatsApp float */
+    .whatsapp-float { padding: 16px; border-radius: 50%; bottom: 24px; right: 20px; }
     .whatsapp-float-text { display: none; }
-    .whatsapp-float { padding: 16px; border-radius: 50%; }
+  }
+
+  /* Telas muito pequenas */
+  @media (max-width: 360px) {
+    .hero-title { font-size: clamp(2.4rem, 16vw, 3rem); }
+    .section-title { font-size: clamp(1.6rem, 9vw, 2rem); }
+    .about-stats { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -926,12 +1049,12 @@
     </div>
     <div>
       <ul class="home-service-info">
-        <li>Taxa de deslocamento cobrada a partir de <strong style="color:var(--cream)">3 km</strong> de distância</li>
-        <li>Agendamento confirmado após <strong style="color:var(--cream)">confirmação da profissional + pagamento da taxa</strong></li>
-        <li>Garanta uma <strong style="color:var(--cream)">tomada próxima</strong> — precisamos carregar os aparelhos</li>
-        <li>Especifique o <strong style="color:var(--cream)">local do atendimento</strong> no momento do agendamento</li>
-        <li>Sem encaixes com menos de <strong style="color:var(--cream)">2 dias de antecedência</strong></li>
-        <li>Manutenção entre <strong style="color:var(--cream)">15 e 20 dias</strong> para preservar o procedimento</li>
+        <li><span class="li-text">Taxa de deslocamento cobrada a partir de <strong style="color:var(--cream)">3 km</strong> de distância</span></li>
+        <li><span class="li-text">Agendamento confirmado após <strong style="color:var(--cream)">confirmação da profissional + pagamento da taxa</strong></span></li>
+        <li><span class="li-text">Garanta uma <strong style="color:var(--cream)">tomada próxima</strong> — precisamos carregar os aparelhos</span></li>
+        <li><span class="li-text">Especifique o <strong style="color:var(--cream)">local do atendimento</strong> no momento do agendamento</span></li>
+        <li><span class="li-text">Sem encaixes com menos de <strong style="color:var(--cream)">2 dias de antecedência</strong></span></li>
+        <li><span class="li-text">Manutenção entre <strong style="color:var(--cream)">15 e 20 dias</strong> para preservar o procedimento</span></li>
       </ul>
     </div>
   </div>
